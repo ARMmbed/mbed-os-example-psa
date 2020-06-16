@@ -1,7 +1,7 @@
 # mbed-os-example-psa
 
 This is an example application showing how to query the PSA version. It also
-blinks and LED to indicate it is working.
+blinks an LED to indicate it is working.
 
 ## Prerequisite
 
