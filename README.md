@@ -66,3 +66,9 @@ Executing from NS Core... LED Blink rate : 1000 ms
 ```
 
 where NNN is the PSA framework version number.
+
+## License and contributions
+
+The software is provided under Apache-2.0 license. Contributions to this project are accepted under the same license. Please see [contributing.md](./CONTRIBUTING.md) for more info.
+
+This project contains code from other projects. The original license text is included in those source files. They must comply with our [license guide](https://os.mbed.com/docs/mbed-os/v6.2/contributing/license.html)
