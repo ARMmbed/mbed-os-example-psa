@@ -1,11 +1,10 @@
 # mbed-os-example-psa
 
-This is an example application showing how to query the PSA version. It also
-blinks an LED to indicate it is working.
+This is an example application showing how to query the PSA version. It also blinks an LED to indicate it is working.
 
 ## Prerequisite
 
-* [Mbed CLI](https://github.com/ARMmbed/mbed-cli) - to build the example program. For installation and usage instructions, see the [documentation](https://os.mbed.com/docs/mbed-os/v6.0/build-tools/mbed-cli.html).
+* [Mbed CLI](https://github.com/ARMmbed/mbed-cli) - to build the example program. For installation and usage instructions, see the [documentation](https://os.mbed.com/docs/mbed-os/latest/build-tools/mbed-cli.html).
 
 ## Building the Mbed OS application
 
@@ -22,33 +21,32 @@ blinks an LED to indicate it is working.
 
 #### Compile the example
 
-Invoke `mbed compile`, and specify the name of your platform and toolchain (`GCC_ARM`, `ARM`, `IAR`). For example, for the CY8CKIT_064S2_4343W platform and GCC_ARM toolchain:
+Invoke `mbed compile`, and specify the name of your platform and toolchain (`GCC_ARM`, `ARM`). For example, for the ARM_MUSCA_S1 platform and GCC_ARM toolchain:
 
 ```
-mbed compile -m CY8CKIT_064S2_4343W -t GCC_ARM
+mbed compile -m ARM_MUSCA_S1 -t GCC_ARM
 ```
 Once its compiled, you should see the following result:
 ```
-[snip]
 | Module           |         .text |       .data |          .bss |
 |------------------|---------------|-------------|---------------|
-| [fill]           |       98(+98) |     10(+10) |       45(+45) |
-| [lib]/c.a        |   4940(+4940) | 2108(+2108) |       89(+89) |
-| [lib]/gcc.a      |     832(+832) |       0(+0) |         0(+0) |
-| [lib]/misc       |     224(+224) |       4(+4) |       28(+28) |
+| [fill]           |       46(+46) |       0(+0) |       37(+37) |
+| [lib]/c.a        |   4792(+4792) | 2108(+2108) |       89(+89) |
+| [lib]/gcc.a      |     764(+764) |       0(+0) |         0(+0) |
+| [lib]/misc       |     180(+180) |       4(+4) |       28(+28) |
 | [misc]           |         0(+0) |       0(+0) |         0(+0) |
-| main.o           |     168(+168) |       0(+0) |         0(+0) |
+| main.o           |     100(+100) |       0(+0) |         0(+0) |
+| mbed-os/cmsis    |   6716(+6716) |   240(+240) | 14929(+14929) |
 | mbed-os/drivers  |     480(+480) |       0(+0) |         0(+0) |
-| mbed-os/features |   1754(+1754) |       1(+1) |     288(+288) |
-| mbed-os/hal      |   2608(+2608) |       8(+8) |     248(+248) |
-| mbed-os/platform |   5538(+5538) |   260(+260) |     416(+416) |
-| mbed-os/rtos     |   8404(+8404) |   240(+240) | 23472(+23472) |
-| mbed-os/targets  | 24874(+24874) |   297(+297) |   1210(+1210) |
-| Subtotals        | 49920(+49920) | 2928(+2928) | 25796(+25796) |
-Total Static RAM memory (data + bss): 28724(+28724) bytes
-Total Flash memory (text + data): 52848(+52848) bytes
+| mbed-os/hal      |   2670(+2670) |       8(+8) |     232(+232) |
+| mbed-os/platform |   4090(+4090) |   260(+260) |     268(+268) |
+| mbed-os/rtos     |       28(+28) |       0(+0) |         0(+0) |
+| mbed-os/targets  |   3242(+3242) |     36(+36) |       77(+77) |
+| Subtotals        | 23108(+23108) | 2656(+2656) | 15660(+15660) |
+Total Static RAM memory (data + bss): 18316(+18316) bytes
+Total Flash memory (text + data): 25764(+25764) bytes
 
-Image: ./BUILD/CY8CKIT_064S2_4343W/GCC_ARM/mbed-os-example-psa.hex
+Image: ./BUILD/ARM_MUSCA_S1/GCC_ARM/mbed-os-example-psa.bin
 ```
 #### Run the example
 
