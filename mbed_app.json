@@ -2,6 +2,7 @@
     "target_overrides": {
         "*": {
              "platform.stdio-convert-newlines": true,
+             "platform.stdio-baud-rate": 115200,
              "rtos.mutex-num": 4,
              "rtos.semaphore-num": 4,
              "rtos.thread-num": 9,
