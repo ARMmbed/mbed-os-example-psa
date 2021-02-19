@@ -1,69 +1,56 @@
-# mbed-os-example-psa
+# PSA Mbed OS example
 
-This is an example application showing how to query the PSA version. It also blinks an LED to indicate it is working.
+This is an example application showing how to query the PSA version.
 
-## Prerequisite
+You can build this project with all supported [Mbed OS build tools](https://os.mbed.com/docs/mbed-os/latest/tools/index.html). However, this example project specifically refers to the command-line interface tool [Arm Mbed CLI](https://github.com/ARMmbed/mbed-cli#installing-mbed-cli).
 
-* [Mbed CLI](https://github.com/ARMmbed/mbed-cli) - to build the example program. For installation and usage instructions, see the [documentation](https://os.mbed.com/docs/mbed-os/latest/build-tools/mbed-cli.html).
-
-## Building the Mbed OS application
-
-#### Import the example
-
-1. From the command line, clone the repository containing the example:
-    ```
-    $ git clone https://github.com/ARMmbed/mbed-os-example-psa
-    ```
-
+1. Install Mbed CLI.
+1. From the command-line, import the example: `mbed import mbed-os-example-psa`
 1. Change the current directory to where the project was imported.
 
-1. Update `mbed-os` sources by running `mbed deploy`.
+## Application functionality
 
-#### Compile the example
+The `main()` function queries the PSA version and toggles the state of a digital output connected to an LED on the board.
 
-Invoke `mbed compile`, and specify the name of your platform and toolchain (`GCC_ARM`, `ARM`). For example, for the ARM_MUSCA_S1 platform and GCC_ARM toolchain:
+## Building and running
+
+1. Connect a USB cable between the USB port on the target and the host computer.
+1. Run the following command to build the example project, program the microcontroller flash memory, and open a serial terminal:
+
+   ```
+   mbed compile -m <TARGET> -t <TOOLCHAIN> --flash --sterm --baud 115200
+   ```
+
+**Note:**  The serial terminal baud rate should be set to 115200 for this example.
+
+The binary is located at `./BUILD/<TARGET>/<TOOLCHAIN>/mbed-os-example-psa.bin`.
+
+## Expected output
+
+The LED on your target turns on and off every 1000 milliseconds. For TFM targets, for example ARM_MUSCA_S1, the serial terminal shows an output similar to (actual digits replaced by "X"):
 
 ```
-mbed compile -m ARM_MUSCA_S1 -t GCC_ARM
-```
-Once its compiled, you should see the following result:
-```
-| Module           |         .text |       .data |          .bss |
-|------------------|---------------|-------------|---------------|
-| [fill]           |       46(+46) |       0(+0) |       37(+37) |
-| [lib]/c.a        |   4792(+4792) | 2108(+2108) |       89(+89) |
-| [lib]/gcc.a      |     764(+764) |       0(+0) |         0(+0) |
-| [lib]/misc       |     180(+180) |       4(+4) |       28(+28) |
-| [misc]           |         0(+0) |       0(+0) |         0(+0) |
-| main.o           |     100(+100) |       0(+0) |         0(+0) |
-| mbed-os/cmsis    |   6716(+6716) |   240(+240) | 14929(+14929) |
-| mbed-os/drivers  |     480(+480) |       0(+0) |         0(+0) |
-| mbed-os/hal      |   2670(+2670) |       8(+8) |     232(+232) |
-| mbed-os/platform |   4090(+4090) |   260(+260) |     268(+268) |
-| mbed-os/rtos     |       28(+28) |       0(+0) |         0(+0) |
-| mbed-os/targets  |   3242(+3242) |     36(+36) |       77(+77) |
-| Subtotals        | 23108(+23108) | 2656(+2656) | 15660(+15660) |
-Total Static RAM memory (data + bss): 18316(+18316) bytes
-Total Flash memory (text + data): 25764(+25764) bytes
-
-Image: ./BUILD/ARM_MUSCA_S1/GCC_ARM/mbed-os-example-psa.bin
-```
-#### Run the example
-
-1. Connect your Mbed Enabled device to the computer over USB.
-1. Copy the binary or hex file to the Mbed device.
-1. Connect to the Mbed Device using a serial client application of your choice.
-1. Press the reset button on the Mbed device to run the program.
-
-**Note:** The default serial port baud rate is 9600 baud.
-
-Expected output:
-```
-PSA Framework Version : NNN
+--- Terminal on /dev/tty.usbmodem146102 - 115200,8,N,1 ---
+[INF] Starting bootloader
+[INF] Swap type: none
+[INF] Swap type: none
+[INF] Bootloader chainload address offset: 0x20000
+[INF] Jumping to the first image slot
+[Sec Thread] Secure image initializing!
+Booting TFM vX.X
+PSA Framework Version : XXX
+Executing from NS Core... LED Blink rate : 1000 ms
 Executing from NS Core... LED Blink rate : 1000 ms
 ```
 
-where NNN is the PSA framework version number.
+For non TFM targets, for example K64F, the serial terminal shows an output similar to:
+
+```
+--- Terminal on /dev/tty.usbmodem146102 - 115200,8,N,1 ---
+PSA Framework Version : XXX
+Executing from NS Core... LED Blink rate : 1000 ms
+Executing from NS Core... LED Blink rate : 1000 ms
+```
 
 ## License and contributions
 
