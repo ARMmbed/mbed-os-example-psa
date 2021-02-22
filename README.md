@@ -8,22 +8,49 @@ You can build this project with all supported [Mbed OS build tools](https://os.m
 1. From the command-line, import the example: `mbed import mbed-os-example-psa`
 1. Change the current directory to where the project was imported.
 
+## Mbed OS build tools
+
+### Mbed CLI 2
+Starting with version 6.5, Mbed OS uses Mbed CLI 2. It uses Ninja as a build system, and CMake to generate the build environment and manage the build process in a compiler-independent manner. If you are working with Mbed OS version prior to 6.5 then check the section [Mbed CLI 1](#mbed-cli-1).
+1. [Install Mbed CLI 2](https://os.mbed.com/docs/mbed-os/latest/build-tools/install-or-upgrade.html).
+1. From the command-line, import the example: `mbed-tools import mbed-os-example-psa`
+1. Change the current directory to where the project was imported.
+
+### Mbed CLI 1
+1. [Install Mbed CLI 1](https://os.mbed.com/docs/mbed-os/latest/quick-start/offline-with-mbed-cli.html).
+1. From the command-line, import the example: `mbed import mbed-os-example-psa`
+1. Change the current directory to where the project was imported.
+
 ## Application functionality
 
 The `main()` function queries the PSA version and toggles the state of a digital output connected to an LED on the board.
 
 ## Building and running
 
-1. Connect a USB cable between the USB port on the target and the host computer.
-1. Run the following command to build the example project, program the microcontroller flash memory, and open a serial terminal:
+1. Connect a USB cable between the USB port on the board and the host computer.
+1. Run the following command to build the example project and program the microcontroller flash memory:
 
-   ```
-   mbed compile -m <TARGET> -t <TOOLCHAIN> --flash --sterm --baud 115200
-   ```
+    * Mbed CLI 2
+
+    ```bash
+    $ mbed-tools compile -m <TARGET> -t <TOOLCHAIN> --flash
+    ```
+
+    * Mbed CLI 1
+
+    ```bash
+    $ mbed compile -m <TARGET> -t <TOOLCHAIN> --flash
+    ```
+
+Your PC may take a few minutes to compile your code.
+
+The binary is located at:
+* **Mbed CLI 2** - `./cmake_build/<TARGET>/<PROFILE>/<TOOLCHAIN>/mbed-os-example-psa.bin`</br>
+* **Mbed CLI 1** - `./BUILD/<TARGET>/<TOOLCHAIN>/mbed-os-example-psa.bin`
+
+Alternatively, you can manually copy the binary to the board, which you mount on the host computer over USB.
 
 **Note:**  The serial terminal baud rate should be set to 115200 for this example.
-
-The binary is located at `./BUILD/<TARGET>/<TOOLCHAIN>/mbed-os-example-psa.bin`.
 
 ## Expected output
 
