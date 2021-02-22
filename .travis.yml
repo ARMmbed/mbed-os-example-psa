@@ -28,6 +28,15 @@ cache:
     # Therefore manually adding ccache directory to cache
     - ${HOME}/.ccache
 
+addons:
+  apt:
+    sources:
+      - sourceline: 'deb https://apt.kitware.com/ubuntu/ focal main'
+        key_url: 'https://apt.kitware.com/keys/kitware-archive-latest.asc'
+    packages:
+      - cmake
+      - ninja-build
+
 matrix:
   include:
 
@@ -47,6 +56,14 @@ matrix:
         - export PATH="$PATH:${PWD}/gcc-arm-none-eabi-9-2020-q2-update/bin"
         - popd
         - arm-none-eabi-gcc --version
+        # Hide Travis-preinstalled CMake
+        # The Travis-preinstalled CMake is unfortunately not installed via apt, so we
+        # can't replace it with an apt-supplied version very easily. Additionally, we
+        # can't permit the Travis-preinstalled copy to survive, as the Travis default
+        # path lists the Travis CMake install location ahead of any place where apt
+        # would install CMake to. Instead of apt removing or upgrading to a new CMake
+        # version, we must instead delete the Travis copy of CMake.
+        - sudo rm -rf /usr/local/cmake*
         # Setup ccache
         - ccache -o compiler_check=content
         - pushd /usr/lib/ccache
@@ -57,11 +74,11 @@ matrix:
         # Fetch mbed-os: We use manual clone, with depth=1 and --single-branch to save time.
         - git clone --depth=1 --single-branch https://github.com/ARMmbed/mbed-os.git;
         # Install Mbed CLI and dependencies
-        - pip install --upgrade mbed-cli
-        - pip install -r mbed-os/requirements.txt
+        - pip install --upgrade mbed-tools
+        - pip install -r mbed-os/tools/cmake/requirements.txt
       script:
-        - echo mbed compile -t GCC_ARM -m ${TARGET_NAME} --profile ${PROFILE}
-        - mbed compile -t GCC_ARM -m ${TARGET_NAME} --profile ${PROFILE}
+        - echo mbedtools compile -t GCC_ARM -m ${TARGET_NAME} -b ${PROFILE}
+        - mbedtools compile -t GCC_ARM -m ${TARGET_NAME} -b ${PROFILE}
         - ccache -s
 
     - <<: *mbed-psa-compile-test
