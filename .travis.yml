@@ -75,7 +75,7 @@ matrix:
         - git clone --depth=1 --single-branch https://github.com/ARMmbed/mbed-os.git;
         # Install Mbed CLI and dependencies
         - pip install --upgrade mbed-tools
-        - pip install -r mbed-os/tools/cmake/requirements.txt
+        - pip install -r mbed-os/requirements.txt
       script:
         - echo mbedtools compile -t GCC_ARM -m ${TARGET_NAME} -b ${PROFILE}
         - mbedtools compile -t GCC_ARM -m ${TARGET_NAME} -b ${PROFILE}
