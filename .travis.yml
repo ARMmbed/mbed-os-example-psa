@@ -71,11 +71,10 @@ matrix:
         - sudo ln -s $(which ccache) arm-none-eabi-g++
         - export PATH="/usr/lib/ccache:$PATH"
         - popd
-        # Fetch mbed-os: We use manual clone, with depth=1 and --single-branch to save time.
-        - git clone --depth=1 --single-branch https://github.com/ARMmbed/mbed-os.git;
         # Install Mbed CLI and dependencies
         - pip install --upgrade mbed-tools
-        - pip install -r mbed-os/tools/cmake/requirements.txt
+        - mbed-tools deploy
+        - pip install -r mbed-os/requirements.txt
       script:
         - echo mbedtools compile -t GCC_ARM -m ${TARGET_NAME} -b ${PROFILE}
         - mbedtools compile -t GCC_ARM -m ${TARGET_NAME} -b ${PROFILE}
