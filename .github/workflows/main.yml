@@ -1,0 +1,52 @@
+name: Build example application
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  build-cli-v1:
+    container:
+      image: ghcr.io/armmbed/mbed-os-env:master-latest
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        target: [GD32_F450ZI, FVP_MPS2_M7, FVP_MPS2_M4, FVP_MPS2_M3, FVP_MPS2_M0P, FVP_MPS2_M0, NUCLEO_F429ZI, K66F, K64F, ARM_MUSCA_B1, ARM_MUSCA_S1]
+        profile: [release, develop]
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: build-example
+        run: |
+          set -e
+          mbed deploy
+          mbed compile -t GCC_ARM -m ${{ matrix.target }} --profile ${{ matrix.profile }}
+
+
+  build-cli-v2:
+    container:
+      image: ghcr.io/armmbed/mbed-os-env:master-latest
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        target: [GD32_F450ZI, FVP_MPS2_M7, FVP_MPS2_M4, FVP_MPS2_M3, FVP_MPS2_M0P, FVP_MPS2_M0, NUCLEO_F429ZI, K66F, K64F, ARM_MUSCA_B1, ARM_MUSCA_S1]
+        profile: [release, develop]
+
+
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v2
+
+     - name: build-example
+       run: |
+         set -e
+         mbed-tools deploy
+         mbed-tools compile -t GCC_ARM -m ${{ matrix.target }} --profile ${{ matrix.profile }}
+
